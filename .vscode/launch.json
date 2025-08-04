@@ -1,0 +1,73 @@
+// {
+//     // Use IntelliSense to learn about possible attributes.
+//     // Hover to view descriptions of existing attributes.
+//     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "type": "node",
+//             "request": "launch",
+//             "name": "Launch Program",
+//             "skipFiles": [
+//                 "<node_internals>/**"
+//             ],
+//             "program": "${file}"
+//         }
+//     ]
+// }
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug NestJS",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/nest",
+      "args": ["start", "--debug", "--watch"],
+      "console": "integratedTerminal",
+      "restart": true,
+      "protocol": "inspector",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "cwd": "${workspaceFolder}",
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ]
+    },
+    {
+      "name": "Debug NestJS (Alternative)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/main.ts",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "restart": true
+    },
+    {
+      "name": "Attach to NestJS",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "protocol": "inspector",
+      "sourceMaps": true
+    }
+  ]
+}

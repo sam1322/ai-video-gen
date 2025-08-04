@@ -1,9 +1,9 @@
-import { Controller, Post, Body, Get, Param, Res } from '@nestjs/common';
-import { VideoService } from './video.service';
+import { Body, Controller, Get, InternalServerErrorException, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { OpenAIService } from './services/openai.service';
-import { ImageService } from './services/image.service';
 import { ElevenLabsService } from './services/elevenlabs.service';
+import { ImageService } from './services/image.service';
+import { OpenAIService } from './services/openai.service';
+import { VideoService } from './video.service';
 
 @Controller('video')
 export class VideoController {
@@ -52,6 +52,11 @@ export class VideoController {
   async downloadVideo(@Param('jobId') jobId: string, @Res() res: Response) {
     const filePath = await this.videoService.getVideoPath(jobId);
     res.download(filePath);
+  }
+
+  @Get("/debug-sentry")
+  getError() {
+    throw new InternalServerErrorException("My second Sentry error!");
   }
 
 }
